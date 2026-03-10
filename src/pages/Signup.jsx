@@ -207,13 +207,13 @@ const Signup = () => {
               <h2 className="text-center text-lg font-semibold  mt-1">OR</h2>
             </div>
 
-            <div>
+            {/* <div>
               <a href="/">
                 <button className="align-middle font-bold font-sans mt-1 p-2 text-center h-10 w-full bg-blue-700 text-white rounded-full focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none text-xs">
                   Continue with Google
                 </button>
               </a>
-            </div>
+            </div> */}
 
             <div className="mt-3 sm:flex justify-center  text-center ">
               <h2 className="text-sm mt-1">Already have an account?</h2>
