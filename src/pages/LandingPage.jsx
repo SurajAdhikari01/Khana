@@ -8,6 +8,7 @@ import AutoScrollPartners from "../components/PartnerArea";
 import LandingpageLeaderboard from "../components/LandingpageLeaderboard";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { api } from "../api";
 const LandingPage = () => {
   const [topContributorsData, setTopContributorsData] = useState([]);
   const [darkMode, setDarkMode] = useState(false);
@@ -18,9 +19,7 @@ const LandingPage = () => {
 
   const getTopDonatorsDataFunc = async () => {
     try {
-      const response = await axios.get(
-        `    https://bhojanbd-1.onrender.com/api/v1/getData/get-top-donors`
-      );
+      const response = await axios.get(`${api}/getData/get-top-donors`);
       //console.log(response);
       const users = response.data.data;
       //console.log(users);
@@ -31,9 +30,7 @@ const LandingPage = () => {
   };
   const getOrganizationDetails = async () => {
     try {
-      const response = await axios.get(
-        `    https://bhojanbd-1.onrender.com/api/v1/getData/getOrganizationDetails`
-      );
+      const response = await axios.get(`${api}/getData/getOrganizationDetails`);
       console.log(response);
       const bhojan = response.data.data.bhojan;
       //console.log("org details", bhojan);

@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { api } from "../api";
 const Signup = () => {
   const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
@@ -18,15 +19,12 @@ const Signup = () => {
       //console.log(email, password);
       // api/users/register
       // send register data
-      const response = await axios.post(
-        "   https://bhojanbd-1.onrender.com/api/v1/users/register",
-        {
-          username,
-          email,
-          password,
-          isDonor: selectedTab === "Donator" ? true : false,
-        }
-      );
+      const response = await axios.post(`${api}/users/register`, {
+        username,
+        email,
+        password,
+        isDonor: selectedTab === "Donator" ? true : false,
+      });
 
       // handle success
       //console.log(response.data);

@@ -18,6 +18,7 @@ import { BiCloud } from "react-icons/bi";
 import HowToDistribute from "../components/HowToDistribute";
 import { useSelector } from "react-redux";
 import DistributionTable from "../components/DistributionTable.jsx";
+import { api } from "../api";
 // import { useNavigate } from "react-router-dom";
 
 const Volunteer = () => {
@@ -43,8 +44,8 @@ const Volunteer = () => {
       try {
         if (userDetails) {
           const endpoint = userDetails.isDonor
-            ? "  https://bhojanbd-1.onrender.com/api/v1/getData/getDonorsRank"
-            : "  https://bhojanbd-1.onrender.com/api/v1/getData/getDistributorsRank";
+            ? `${api}/getData/getDonorsRank`
+            : `${api}/getData/getDistributorsRank`;
           console.log("userDetails.username", userDetails?.username);
           const response = await axios.post(endpoint, {
             username: userDetails?.username,
@@ -89,7 +90,7 @@ const Volunteer = () => {
   const AhandleToggle = (index) => {
     setAccordionOpen((prevAccordionOpen) => !prevAccordionOpen);
     setExpandedItem((prevExpandedItem) =>
-      prevExpandedItem === index ? null : index
+      prevExpandedItem === index ? null : index,
     );
 
     if (!AccordionOpen) {
@@ -156,9 +157,9 @@ const Volunteer = () => {
   const currentActiveListings = async () => {
     try {
       const response = await axios.get(
-        "    https://bhojanbd-1.onrender.com/api/v1/getData/active-listings",
+        `${api}/getData/active-listings`,
         {},
-        {}
+        {},
       );
       //console.log("Current active listings for user are:", response.data.data);
       setAccordionItems(response.data.data.result);
@@ -178,7 +179,7 @@ const Volunteer = () => {
   const getUsersPendingDistributions = async () => {
     try {
       const response = await axios.post(
-        "    https://bhojanbd-1.onrender.com/api/v1/order/pending-listings-for-distributor",
+        `${api}/order/pending-listings-for-distributor`,
         {
           _id: userDetails._id,
         },
@@ -187,7 +188,7 @@ const Volunteer = () => {
             "Content-Type": "application/json", //says data at body is at json format
           },
           withCredentials: true, // Send cookies with the request
-        }
+        },
       );
       // console.log(response.data.data.runningOrders);
       //console.log("From users pending distribution at volunteer:", response);
@@ -210,13 +211,13 @@ const Volunteer = () => {
   const cancelOrderForDistributor = async (_id) => {
     try {
       const response = await axios.post(
-        `    https://bhojanbd-1.onrender.com/api/v1/order/cancel-order-for-distributor`,
+        `${api}/order/cancel-order-for-distributor`,
         {
           _orderId: _id,
         },
         {
           withCredentials: true, // Include credentials (cookies) in the request
-        }
+        },
       );
       //console.log("Successfully cancelled order:", response);
       // setTopContributorsData(response.data.data.topTenDonators);
@@ -284,7 +285,7 @@ const Volunteer = () => {
                     accordionItems
                       .slice(
                         (currentPage - 1) * itemsPerPage,
-                        currentPage * itemsPerPage
+                        currentPage * itemsPerPage,
                       )
                       .map((item, index) => (
                         <div key={index}>

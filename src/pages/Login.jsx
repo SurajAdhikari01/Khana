@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../features/user/authslice";
 import LoginButton from "../components/auth0login";
 import LogoutButton from "../components/auth0logout";
+import { api } from "../api";
 const Login = () => {
   const { register, handleSubmit, formState } = useForm();
   const [error, setError] = useState("");
@@ -17,14 +18,14 @@ const Login = () => {
     //console.log("Email and password:", email, password);
     try {
       const response = await axios.post(
-        "    https://bhojanbd-1.onrender.com/api/v1/users/login",
+        `${api}/users/login`,
         {
           email,
           password,
         },
         {
           withCredentials: true, // Include credentials (cookies) in the request
-        }
+        },
       );
       //console.log(response);
       //console.log("Response.data.data.isDonor", response.data.data.isDonor);
@@ -100,7 +101,7 @@ const Login = () => {
                 placeholder="Enter your Email"
                 required
                 {...register(
-                  "email"
+                  "email",
                   // , {
                   //   required: true,
                   //   validate: {
@@ -124,7 +125,7 @@ const Login = () => {
                 placeholder="Enter your Password"
                 required
                 {...register(
-                  "password"
+                  "password",
                   // ,{required:true}
                 )}
               />

@@ -1,15 +1,13 @@
 import axios from "axios";
 import { login, logout } from "./authslice.js";
+import { api } from "../../api";
 export const fetchUserData = (navigate) => {
   return async (dispatch, useSelector) => {
     try {
       //console.log("Tried reloading the page");
-      const response = await axios.get(
-        "  https://bhojanbd-1.onrender.com/api/v1/getData/getUserDetails",
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await axios.get(`${api}/getData/getUserDetails`, {
+        withCredentials: true,
+      });
       // console.log(response.data.data);
       dispatch(login(response.data.data));
       const userDetails = await useSelector((state) => state.auth.userDetails);

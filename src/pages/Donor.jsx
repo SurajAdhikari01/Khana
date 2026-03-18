@@ -16,6 +16,7 @@ import { FiLogOut } from "react-icons/fi";
 import { FiFolder } from "react-icons/fi";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { api } from "../api";
 
 const Donor = () => {
   const [isDistribute, setIsDistribute] = useState(false);
@@ -27,8 +28,8 @@ const Donor = () => {
       try {
         if (userDetails) {
           const endpoint = userDetails.isDonor
-            ? "  https://bhojanbd-1.onrender.com/api/v1/getData/getDonorsRank"
-            : "  https://bhojanbd-1.onrender.com/api/v1/getData/getDistributorsRank";
+            ? `${api}/getData/getDonorsRank`
+            : `${api}/getData/getDistributorsRank`;
           console.log("userDetails.username", userDetails?.username);
           const response = await axios.post(endpoint, {
             username: userDetails?.username,
@@ -56,10 +57,10 @@ const Donor = () => {
     try {
       if (userDetails._id) {
         const response = await axios.post(
-          "    https://bhojanbd-1.onrender.com/api/v1/getData/getAllCompletedOrdersForDonor",
+          `${api}/getData/getAllCompletedOrdersForDonor`,
           {
             _id: userDetails._id,
-          }
+          },
         );
         // console.log("Fetched All Completed Orders For Donor successfully",response);
         // console.log(response.data.data.completedOrders);
@@ -121,7 +122,7 @@ const Donor = () => {
     try {
       if (formData) {
         const response = await axios.post(
-          "  https://bhojanbd-1.onrender.com/api/v1/order/create-order",
+          `${api}/order/create-order`,
           {
             _id: userDetails._id,
             foodItems: formData.foodItem,
@@ -134,7 +135,7 @@ const Donor = () => {
               "Content-Type": "application/json", //says data at body is at json format
             },
             withCredentials: true, // Send cookies with the request
-          }
+          },
         );
         //console.log("Order Added succesfully");
         setRecentOrderDetails(response);
@@ -149,7 +150,7 @@ const Donor = () => {
   const currentActiveListings = async () => {
     try {
       const response = await axios.post(
-        " https://bhojanbd-1.onrender.com/api/v1/order/active-listings-for-donor",
+        `${api}/order/active-listings-for-donor`,
         {
           _id: userDetails._id,
         },
@@ -158,7 +159,7 @@ const Donor = () => {
             "Content-Type": "application/json", //says data at body is at json format
           },
           withCredentials: true, // Send cookies with the request
-        }
+        },
       );
       //console.log(response.data.data);
       setActiveListings(response.data.data);
@@ -222,13 +223,13 @@ const Donor = () => {
   const cancelOrderForDonor = async (_id) => {
     try {
       const response = await axios.post(
-        `    https://bhojanbd-1.onrender.com/api/v1/order/cancel-order-for-donor`,
+        `${api}/order/cancel-order-for-donor`,
         {
           _orderId: _id,
         },
         {
           withCredentials: true, // Include credentials (cookies) in the request
-        }
+        },
       );
       //console.log("Successfully cancelled order:", response);
       // setTopContributorsData(response.data.data.topTenDonators);
@@ -241,13 +242,13 @@ const Donor = () => {
     try {
       console.log("complete order for donor reached");
       const response = await axios.post(
-        `    https://bhojanbd-1.onrender.com/api/v1/order/completed-order-for-donor`,
+        `${api}/order/completed-order-for-donor`,
         {
           _orderId: _id,
         },
         {
           withCredentials: true, // Include credentials (cookies) in the request
-        }
+        },
       );
       //console.log("Successfully completed order:", response);
       increaseOrderPoints(_id);
@@ -263,13 +264,13 @@ const Donor = () => {
     try {
       console.log("reached increase order points");
       const response = await axios.post(
-        ` https://bhojanbd-1.onrender.com/api/v1/order/increaseOrderPoints`,
+        `${api}/order/increaseOrderPoints`,
         {
           _orderId: _id,
         },
         {
           withCredentials: true, // Include credentials (cookies) in the request
-        }
+        },
       );
       console.log("Increased order points:", response);
     } catch (error) {

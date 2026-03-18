@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { api } from "../api";
 const OTP = () => {
   const params = useParams(); // Extract userId from the URL
   const navigate = useNavigate();
@@ -22,17 +23,14 @@ const OTP = () => {
   const verifyOTP = async () => {
     try {
       setLoader(true);
-      const response = await axios.post(
-        "    https://bhojanbd-1.onrender.com/api/v1/users/verify-otp",
-        {
-          userId: params.userId,
-          userOTP: userOTP,
-          // .trim()
-        }
-      );
+      const response = await axios.post(`${api}/users/verify-otp`, {
+        userId: params.userId,
+        userOTP: userOTP,
+        // .trim()
+      });
       //console.log(response);
       navigate(
-        `/register/${response.data.data.username}/${response.data.data.email}/${params.userId}`
+        `/register/${response.data.data.username}/${response.data.data.email}/${params.userId}`,
       );
     } catch (error) {
       setLoader(false);

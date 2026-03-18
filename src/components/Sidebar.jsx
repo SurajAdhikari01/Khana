@@ -7,6 +7,7 @@ import axios from "axios";
 import { IoMdSunny, IoMdMoon } from "react-icons/io";
 import { logout } from "../features/user/authslice";
 import { FiLogOut } from "react-icons/fi";
+import { api } from "../api";
 
 export const Sidebar = ({ menus, handleToggle, isOpen }) => {
   const [isMobile, setIsMobile] = useState(false);
@@ -119,12 +120,12 @@ export const Sidebar = ({ menus, handleToggle, isOpen }) => {
                 try {
                   navigate("/");
                   const response = await axios.post(
-                    "   https://bhojanbd-1.onrender.com/api/v1/users/logout",
+                    `${api}/users/logout`,
 
                     {},
                     {
                       withCredentials: true, // Include credentials (cookies) in the request
-                    }
+                    },
                   );
                   // .then(response=>{
                   //console.log(response);
@@ -234,12 +235,12 @@ export const Sidebar = ({ menus, handleToggle, isOpen }) => {
                   try {
                     navigate("/");
                     const response = await axios.post(
-                      "   https://bhojanbd-1.onrender.com/api/v1/users/logout",
+                      `${api}/users/logout`,
 
                       {},
                       {
                         withCredentials: true, // Include credentials (cookies) in the request
-                      }
+                      },
                     );
                     // .then(response=>{
                     //console.log(response);

@@ -8,6 +8,7 @@ import { MapPin, Phone, Clock, User } from "react-feather";
 import { toast, ToastContainer } from "react-toastify";
 import Confirmation from "./Confirmation";
 import { FaBowlFood } from "react-icons/fa6";
+import { api } from "../api";
 
 function AccordionItem({
   item,
@@ -106,7 +107,7 @@ function AccordionItem({
     };
     const formattedDate = new Date(createdAt).toLocaleDateString(
       "en-US",
-      options
+      options,
     );
     return formattedDate;
   };
@@ -119,7 +120,7 @@ function AccordionItem({
 
     // Calculate the closing date by adding closing time to createdAt
     const closingDate = new Date(
-      itemCreatedAt.getTime() + closingTimeInMilliseconds
+      itemCreatedAt.getTime() + closingTimeInMilliseconds,
     );
 
     const options = {
@@ -134,26 +135,26 @@ function AccordionItem({
 
     const formattedClosingDate = closingDate.toLocaleDateString(
       "en-US",
-      options
+      options,
     );
 
     // Calculate the remaining countdown time
     const countdown1 = Math.max(
       0,
-      Math.floor((closingDate.getTime() - Date.now()) / 1000)
+      Math.floor((closingDate.getTime() - Date.now()) / 1000),
     );
 
     return { formattedClosingDate, countdown1 };
   };
   const { formattedClosingDate, countdown1 } = closingTimeWithCountdown(
     item.createdAt,
-    item.closingTime
+    item.closingTime,
   );
 
   const addDistributorToOrder = async () => {
     try {
       const response = await axios.post(
-        "    https://bhojanbd-1.onrender.com/api/v1/order/add-distributor-to-order",
+        `${api}/order/add-distributor-to-order`,
         {
           _id: userDetails._id,
           _orderId: item._id, //yei nai ho sure??
@@ -163,7 +164,7 @@ function AccordionItem({
             "Content-Type": "application/json", //says data at body is at json format
           },
           withCredentials: true, // Send cookies with the request
-        }
+        },
       );
       //console.log("Distributor added to order successfully", response);
       // console.log(response.data.data);

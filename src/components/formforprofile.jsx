@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { api } from "../api";
 
 const UserProfileForm = () => {
   const { register, handleSubmit, formState } = useForm();
@@ -29,15 +30,15 @@ const UserProfileForm = () => {
       formData.append("contact", contactno);
       formData.append(
         "isOrganization",
-        selectedOption === "Organization" ? true : false
+        selectedOption === "Organization" ? true : false,
       );
 
       const response = await axios.post(
-        "    https://bhojanbd-1.onrender.com/api/v1/users/complete-registration",
+        `${api}/users/complete-registration`,
         formData,
         {
           withCredentials: true, // Include credentials (cookies) in the request
-        }
+        },
       );
 
       //console.log(response);
@@ -116,7 +117,7 @@ const UserProfileForm = () => {
                       matchPattern: (value) =>
                         /^[A-Z][a-zA-Z ]*$/.test(value) ||
                         setError(
-                          "Name should start with capital and shouldn't contain any special characters"
+                          "Name should start with capital and shouldn't contain any special characters",
                         ),
                     },
                   })}

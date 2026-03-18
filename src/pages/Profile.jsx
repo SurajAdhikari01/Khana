@@ -8,6 +8,7 @@ import axios from "axios";
 import { TbPhotoEdit } from "react-icons/tb";
 import { useSelector } from "react-redux";
 import Navbar from "../components/Navbar";
+import { api } from "../api";
 const Profile = () => {
   const { register, handleSubmit, formState } = useForm();
   const params = useParams();
@@ -23,8 +24,8 @@ const Profile = () => {
       try {
         if (userDetails) {
           const endpoint = userDetails.isDonor
-            ? "  https://bhojanbd-1.onrender.com/api/v1/getData/getDonorsRank"
-            : "  https://bhojanbd-1.onrender.com/api/v1/getData/getDistributorsRank";
+            ? `${api}/getData/getDonorsRank`
+            : `${api}/getData/getDistributorsRank`;
           console.log("userDetails.username", userDetails?.username);
           const response = await axios.post(endpoint, {
             username: userDetails?.username,
@@ -134,7 +135,7 @@ const Profile = () => {
                       matchPattern: (value) =>
                         /^[A-Z][a-zA-Z ]*$/.test(value) ||
                         setError(
-                          "Name should start with capital and shouldn't contain any special characters"
+                          "Name should start with capital and shouldn't contain any special characters",
                         ),
                     },
                   })}

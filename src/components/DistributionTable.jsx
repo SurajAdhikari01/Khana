@@ -6,6 +6,7 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { FaMapMarkerAlt, FaPhoneAlt } from "react-icons/fa";
 import { FaSortUp, FaSortDown } from "react-icons/fa";
 import axios from "axios";
+import { api } from "../api";
 
 const DistributionTable = ({
   pendingItems,
@@ -126,13 +127,13 @@ const DistributionTable = ({
       try {
         console.log("reached complete order for donor");
         const response = await axios.post(
-          `    https://bhojanbd-1.onrender.com/api/v1/order/completed-order-for-donor`,
+          `${api}/order/completed-order-for-donor`,
           {
             _orderId: completingItemOrderId,
           },
           {
             withCredentials: true, // Include credentials (cookies) in the request
-          }
+          },
         );
         await increaseOrderPoints(completingItemOrderId);
         //console.log(response);
@@ -177,8 +178,8 @@ const DistributionTable = ({
         {isCompletedTable
           ? "Completed Distributions"
           : isDonorPage
-          ? "Active Listings"
-          : "Pending Distributions"}
+            ? "Active Listings"
+            : "Pending Distributions"}
       </h1>
       <div className="flex items-center mb-4"></div>
       {visibleItems.length === 0 ? (
@@ -395,7 +396,7 @@ const DistributionTable = ({
                               <Button
                                 onClick={() => {
                                   setCompletingItemOrderId(
-                                    item.order ? item.order._id : item._id
+                                    item.order ? item.order._id : item._id,
                                   );
                                   handleCompleteClick(index);
                                 }}
@@ -406,7 +407,7 @@ const DistributionTable = ({
                               onClick={() => {
                                 openConfirmation(index);
                                 setCancellingItemOrderId(
-                                  item.order ? item.order._id : item._id
+                                  item.order ? item.order._id : item._id,
                                 );
                               }}
                               variant="cancel"
@@ -419,7 +420,7 @@ const DistributionTable = ({
                             onClick={() =>
                               setExpandedItemIndex(
                                 expandedItemIndex === index ? null : index,
-                                setShowDetails(!showDetails)
+                                setShowDetails(!showDetails),
                               )
                             }
                             variant="viewDetail"
@@ -496,7 +497,7 @@ const DistributionTable = ({
                                 <Button
                                   onClick={() => {
                                     setCompletingItemOrderId(
-                                      item.order ? item.order._id : item._id
+                                      item.order ? item.order._id : item._id,
                                     );
                                     handleCompleteClick(index);
                                   }}
@@ -510,7 +511,7 @@ const DistributionTable = ({
                                 onClick={() => {
                                   openConfirmation(index);
                                   setCancellingItemOrderId(
-                                    item.order ? item.order._id : item._id
+                                    item.order ? item.order._id : item._id,
                                   );
                                 }}
                                 variant="cancel"

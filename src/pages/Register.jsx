@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { login } from "../features/user/authslice";
+import { api } from "../api";
 const Register = () => {
   const { register, handleSubmit, formState, watch } = useForm();
   const { errors } = formState;
@@ -49,15 +50,15 @@ const Register = () => {
       formData.append("contact", contactno);
       formData.append(
         "isOrganization",
-        selectedOption === "Organization" ? true : false
+        selectedOption === "Organization" ? true : false,
       );
       //console.log("form data:", formData);
       const response = await axios.post(
-        "      https://bhojanbd-1.onrender.com/api/v1/users/complete-registration",
+        `${api}/users/complete-registration`,
         formData,
         {
           withCredentials: true, // Include credentials (cookies) in the request
-        }
+        },
       );
 
       //console.log(response);
